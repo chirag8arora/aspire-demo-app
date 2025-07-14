@@ -9,9 +9,11 @@ const SpendLimitIcon = require('../../assets/Set spend limit.svg').default;
 const GPayIcon = require('../../assets/GPay.svg').default;
 const ReplaceIcon = require('../../assets/Replace card.svg').default;
 const DeactivateIcon = require('../../assets/Deactivate card.svg').default;
-const CardDetailsIcon = require('../../assets/file-storage.svg').default;
+const CardDetailsIcon = require('../../assets/card_details.svg').default;
+const RecentTransactionsIcon = require('../../assets/recent_transactions.svg').default;
 const DownArrowIcon = require('../../assets/down-arrow.svg').default;
-const RefundIcon = require('../../assets/business-and-finance.svg').default;
+const MegaPhoneIcon = require('../../assets/megaphone.svg').default;
+const FileStorageIcon = require('../../assets/file-storage.svg').default;
 const FlightIcon = require('../../assets/flights.svg').default;
 const ShoppingIcon = require('../../assets/box.svg').default;
 const AddIcon = require('../../assets/add.svg').default;
@@ -51,6 +53,8 @@ interface Transaction {
 
 interface TransactionsProps {
   transactions: Transaction[];
+  expanded: boolean;
+  onToggle: () => void;
 }
 
 interface AddCardModalProps {
@@ -97,32 +101,32 @@ const Card: React.FC<CardProps> = ({ name, number, expiry, cvv, frozen, onShowNu
 );
 
 const CardActions: React.FC<CardActionsProps> = ({ frozen, onFreeze, onSetLimit, onAddGPay, onReplace, onDeactivate }) => (
-  <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-3 bg-[#F5F6FA] rounded-xl p-4 shadow-sm">
+  <div className="mt-6 grid grid-cols-2 md:grid-cols-5 gap-3 bg-[#EDF3FF] rounded-xl p-4 shadow-sm">
     <button className="flex flex-col items-center" onClick={onFreeze}>
-      <span className="bg-white rounded-full p-2 mb-1 shadow"><img src={FreezeIcon} alt="Freeze" className="h-6" /></span>
+      <span className=" rounded-full p-2 mb-1 shadow"><img src={FreezeIcon} alt="Freeze" className="h-6" /></span>
       <span className="text-xs text-[#222] font-opensans font-semibold">{frozen ? 'Unfreeze card' : 'Freeze card'}</span>
     </button>
     <button className="flex flex-col items-center" onClick={onSetLimit}>
-      <span className="bg-white rounded-full p-2 mb-1 shadow"><img src={SpendLimitIcon} alt="Set limit" className="h-6" /></span>
+      <span className=" rounded-full p-2 mb-1 shadow"><img src={SpendLimitIcon} alt="Set limit" className="h-6" /></span>
       <span className="text-xs text-[#222] font-opensans font-semibold">Set spend limit</span>
     </button>
     <button className="flex flex-col items-center" onClick={onAddGPay}>
-      <span className="bg-white rounded-full p-2 mb-1 shadow"><img src={GPayIcon} alt="GPay" className="h-6" /></span>
+      <span className=" rounded-full p-2 mb-1 shadow"><img src={GPayIcon} alt="GPay" className="h-6" /></span>
       <span className="text-xs text-[#222] font-opensans font-semibold">Add to GPay</span>
     </button>
     <button className="flex flex-col items-center" onClick={onReplace}>
-      <span className="bg-white rounded-full p-2 mb-1 shadow"><img src={ReplaceIcon} alt="Replace" className="h-6" /></span>
+      <span className=" rounded-full p-2 mb-1 shadow"><img src={ReplaceIcon} alt="Replace" className="h-6" /></span>
       <span className="text-xs text-[#222] font-opensans font-semibold">Replace card</span>
     </button>
     <button className="flex flex-col items-center" onClick={onDeactivate}>
-      <span className="bg-white rounded-full p-2 mb-1 shadow"><img src={DeactivateIcon} alt="Cancel" className="h-6" /></span>
+      <span className=" rounded-full p-2 mb-1 shadow"><img src={DeactivateIcon} alt="Cancel" className="h-6" /></span>
       <span className="text-xs text-[#222] font-opensans font-semibold">Cancel card</span>
     </button>
   </div>
 );
 
 const CardDetails: React.FC<CardDetailsProps> = ({ expanded, onToggle }) => (
-  <div className="mt-6 bg-[#F5F6FA] rounded-xl shadow p-4">
+  <div className="bg-[#F5F6FA] rounded-xl shadow p-6">
     <button className="w-full text-left font-semibold text-[#0C365A] flex items-center justify-between font-opensans" onClick={onToggle}>
       <span className="flex items-center gap-2"><img src={CardDetailsIcon} alt="Details" className="h-5" /> Card details</span>
       <img src={DownArrowIcon} alt="Expand" className={`h-4 transform transition-transform ${expanded ? 'rotate-180' : ''}`} />
@@ -131,20 +135,26 @@ const CardDetails: React.FC<CardDetailsProps> = ({ expanded, onToggle }) => (
   </div>
 );
 
-const Transactions: React.FC<TransactionsProps> = ({ transactions }) => (
+const Transactions: React.FC<TransactionsProps> = ({ transactions, expanded , onToggle}) => (
   <div className="bg-[#F5F6FA] rounded-xl shadow p-6">
-    <h2 className="text-base font-semibold text-[#0C365A] mb-4 flex items-center gap-2 font-opensans">
-      <img src={CardDetailsIcon} alt="Tx" className="h-5" /> Recent transactions
-    </h2>
-    <ul className="divide-y divide-gray-100">
+      <button className="w-full text-left font-semibold text-[#0C365A] flex items-center justify-between font-opensans" onClick={onToggle}>
+      <span className="flex items-center gap-2"><img src={RecentTransactionsIcon} alt="Details" className="h-5" /> Recent transactions</span>
+      <img src={DownArrowIcon} alt="Expand" className={`h-4 transform transition-transform ${expanded ? 'rotate-180' : ''}`} />
+    </button>
+
+    {expanded && <ul className="divide-y divide-gray-100 mt-7">
       {transactions.map((tx, idx) => (
         <li key={idx} className="flex items-center justify-between py-3">
           <div className="flex items-center gap-3">
-            <img src={tx.icon} alt="Merchant" className="h-8 w-8 rounded-full bg-gray-100" />
+            {/* <img src={tx.icon} alt="Merchant" className="h-8 w-8 rounded-full bg-gray-100" /> */}
+            <span className="bg-gray rounded-full p-2 mb-1 mt-[-36px] shadow"> <img src={tx.icon} alt="Merchant" className="h-4 w-4 bg-gray-100" /></span>
             <div>
               <p className="font-semibold text-[#222] font-opensans">{tx.merchant}</p>
               <p className="text-xs text-gray-500 font-opensans">{tx.date}</p>
-              <span className={`inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-semibold ${tx.amount > 0 ? 'bg-[#E5F9F6] text-[#01D167]' : 'bg-[#EDF3FD] text-[#0C365A]'}`}>{tx.type}</span>
+              <div className='flex items-center mt-3'>
+                <img src={CardDetailsIcon} alt="Merchant" className="h-5 w-5 bg-gray-100" />
+                <span className={`inline-block mt-1 px-2 rounded-full text-xs font-semibold text-[#325BAF]`}>{tx.type}</span>
+              </div>
             </div>
           </div>
           <div className="text-right">
@@ -152,7 +162,7 @@ const Transactions: React.FC<TransactionsProps> = ({ transactions }) => (
           </div>
         </li>
       ))}
-    </ul>
+    </ul>}
   </div>
 );
 
@@ -211,13 +221,15 @@ export const Dashboard: React.FC = () => {
   const [current, setCurrent] = useState<number>(0);
   const [showNumber, setShowNumber] = useState<boolean>(false);
   const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
+  const [transactionsOpen, setTransactionsOpen] = useState<boolean>(false);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const transactions: Transaction[] = [
-    { merchant: 'Hamleys', date: '20 May 2020', amount: 150, type: 'Refund on debit card', icon: RefundIcon },
+    { merchant: 'Hamleys', date: '20 May 2020', amount: 150, type: 'Refund on debit card', icon: FileStorageIcon },
     { merchant: 'Hamleys', date: '20 May 2020', amount: -150, type: 'Charged to debit card', icon: FlightIcon },
-    { merchant: 'Hamleys', date: '20 May 2020', amount: -150, type: 'Charged to debit card', icon: ShoppingIcon },
+    { merchant: 'Hamleys', date: '20 May 2020', amount: -150, type: 'Charged to debit card', icon: MegaPhoneIcon },
+    { merchant: 'Hamleys', date: '20 May 2020', amount: -150, type: 'Charged to debit card', icon: FileStorageIcon },
   ];
 
   const goPrev = () => setCurrent((prev) => (prev === 0 ? cards.length - 1 : prev - 1));
@@ -337,11 +349,11 @@ export const Dashboard: React.FC = () => {
             onReplace={() => {}}
             onDeactivate={() => {}}
           />
-          <CardDetails expanded={detailsOpen} onToggle={() => setDetailsOpen((v) => !v)} />
         </div>
         {/* Recent Transactions */}
-        <div className="flex-1">
-          <Transactions transactions={transactions} />
+        <div className="flex-1 flex flex-col gap-10">
+          <CardDetails expanded={detailsOpen} onToggle={() => setDetailsOpen((v) => !v)} />
+          <Transactions transactions={transactions} expanded={transactionsOpen} onToggle={() => setTransactionsOpen((v) => !v)} />
         </div>
       </div>
       {/* Add Card Modal */}
