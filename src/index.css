@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/*
+@font-face {
+  font-family: 'Avenir Next';
+  src: local('Avenir Next'), local('AvenirNext-DemiBold'), url('/assets/fonts/AvenirNext-DemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Avenir Next';
+  src: local('Avenir Next'), local('AvenirNext-Medium'), url('/assets/fonts/AvenirNext-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Text';
+  src: local('SF Pro Text'), url('/assets/fonts/SFProText-Semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+}
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles */
+@layer base {
+  html {
+    font-family: 'Avenir Next', 'Open Sans', 'SF Pro Text', system-ui, sans-serif;
+    background: #F5F6FA;
+  }
+  
+  body {
+    @apply antialiased;
+    background: #F5F6FA;
+  }
+}
+
+@layer components {
+  /* Custom utility classes */
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+}
+
+@layer utilities {
+  /* Additional utility classes */
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .backdrop-blur {
+    backdrop-filter: blur(8px);
+  }
+} 
