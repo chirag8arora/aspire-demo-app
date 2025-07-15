@@ -1,65 +1,35 @@
 import React from 'react';
-import { CardProps } from '@/types';
 
-export const Card: React.FC<CardProps> = ({ card, onClick }) => {
-  const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    }).format(date);
-  };
+const VisaLogo = require('../../assets/Visa Logo.svg').default;
+const AspireLogo = require('../../assets/Logo-2.svg').default;
 
-  return (
-    <div
-      onClick={() => onClick(card)}
-      className="bg-white rounded-lg shadow-soft hover:shadow-medium transition-all duration-300 cursor-pointer group overflow-hidden"
-    >
-      {/* Card Image */}
-      {card.image && (
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={card.image}
-            alt={card.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300" />
-        </div>
-      )}
 
-      {/* Card Content */}
-      <div className="p-6">
-        {/* Title */}
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-          {card.title}
-        </h3>
+export interface CardProps {
+  name: string;
+  number: string;
+  expiry: string;
+  cvv: string;
+  frozen: boolean;
+  onShowNumber: () => void;
+  showNumber: boolean;
+}
 
-        {/* Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-          {card.description}
-        </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {card.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-blue-50 text-blue-600 text-xs font-medium rounded-full"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* Footer */}
-        <div className="flex items-center justify-between text-xs text-gray-500">
-          <span>Created: {formatDate(card.createdAt)}</span>
-          <span>Updated: {formatDate(card.updatedAt)}</span>
-        </div>
-      </div>
-
-      {/* Hover Overlay */}
-      <div className="absolute inset-0 bg-blue-500 bg-opacity-0 group-hover:bg-opacity-5 transition-all duration-300 pointer-events-none" />
+export const Card: React.FC<CardProps> = ({ name, number, expiry, cvv, frozen, onShowNumber, showNumber }) => (
+  <div
+    className={`bg-[#01D167] rounded-2xl shadow-lg text-white relative transition-opacity font-avenir ${frozen ? 'opacity-60' : ''} w-[380px] h-[220px] mx-auto flex flex-col justify-between p-7`}
+    style={{ boxShadow: '0px 8px 24px rgba(1, 209, 103, 0.2)' }}
+  >
+    <div className="flex justify-end items-center">
+      <img src={AspireLogo} alt="Aspire Logo" className="h-6" />
     </div>
-  );
-}; 
+    <p className="text-xl font-sans font-bold tracking-wide mt-1">{name}</p>
+    <span className="tracking-[0.4em] text-l font-opensans font-bold mt-[-0.5rem]">{showNumber ? number : `•••• •••• •••• ${number.slice(-4)}`}</span>
+    <div className="flex justify-between text-xs font-opensans font-bold">
+      <span>Thru: {expiry}</span>
+      <span>CVV: {showNumber ? cvv : '***'}</span>
+      <img src={VisaLogo} alt="Visa Logo" className="h-6" />
+    </div>
+    {frozen && <div className="absolute inset-0 bg-white bg-opacity-30 rounded-2xl flex items-center justify-center text-lg font-bold text-gray-700"></div>}
+  </div>
+); 

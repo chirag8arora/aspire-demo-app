@@ -4,4 +4,5 @@ export { Sidebar } from './Sidebar/Sidebar';
 
 // Content Components
 export { Card } from './Card/Card';
-export { CardContainer } from './CardContainer/CardContainer'; 
+export { CardDetails } from './Card/CardDetails';
+export { CardActions } from './Card/CardActions';

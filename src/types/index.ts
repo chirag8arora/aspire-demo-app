@@ -63,13 +63,65 @@ export interface SidebarProps {
 }
 
 
-export interface CardContainerProps {
-  cards: Card[];
-  onCardClick: (card: Card) => void;
-  loading?: boolean;
-}
-
 export interface CardProps {
   card: Card;
   onClick: (card: Card) => void;
+}
+
+export interface CardActionsProps {
+  frozen: boolean;
+  onFreeze: () => void;
+  onSetLimit: () => void;
+  onAddGPay: () => void;
+  onReplace: () => void;
+  onDeactivate: () => void;
+}
+
+export interface CardDetailsProps {
+  expanded: boolean;
+  onToggle: () => void;
+}
+
+export interface Transaction {
+  merchant: string;
+  date: string;
+  amount: number;
+  type: string;
+  icon: string;
+}
+
+export interface TransactionsProps {
+  transactions: Transaction[];
+  expanded: boolean;
+  onToggle: () => void;
+}
+
+export interface AddCardModalProps {
+  open: boolean;
+  onClose: () => void;
+  onAdd: (card: CardType) => void;
+}
+
+export interface CardType {
+  name: string;
+  number: string;
+  expiry: string;
+  cvv: string;
+  frozen: boolean;
 } 
+
+export interface Transaction {
+  merchant: string;
+  date: string;
+  amount: number;
+  type: string;
+  icon: string;
+}
+
+export interface CardType {
+  name: string;
+  number: string;
+  expiry: string;
+  cvv: string;
+  frozen: boolean;
+}

@@ -2,8 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { SidebarProps } from '../../types';
 
-// Import sidebar icons and logo using require for correct asset resolution
-const AccountIcon = require('../../assets/Account.svg').default;
+
 const CreditIcon = require('../../assets/Credit.svg').default;
 const PaymentsIcon = require('../../assets/Payments.svg').default;
 const CardIcon = require('../../assets/pay.svg').default;
@@ -80,7 +79,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed, onToggle }) => {
           </ul>
         </nav>
       </div>
-      {/* Empty footer for spacing/alignment */}
       <div />
     </aside>
   );

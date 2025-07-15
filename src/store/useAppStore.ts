@@ -3,7 +3,6 @@ import { persist } from 'zustand/middleware';
 import { AppState, User, Theme, Notification } from '../types';
 
 interface AppStore extends AppState {
-  // Actions
   setUser: (user: User | null) => void;
   setTheme: (theme: Theme) => void;
   toggleSidebar: () => void;
