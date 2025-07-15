@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card } from '../../components/Card/Card';
 import { CardDetails } from '../../components/Card/CardDetails';
 import { CardActions } from '../../components/Card/CardActions';
@@ -68,10 +68,19 @@ const ShowHideToggle: React.FC<{ show: boolean; onToggle: () => void }> = ({ sho
 );
 
 export const Dashboard: React.FC = () => {
-  const [cards, setCards] = useState<CardType[]>([
+  const defaultCards: CardType[] = [
     { name: 'Mark Henry', number: '1234 5678 9012 2020', expiry: '12/20', cvv: '123', frozen: false },
     { name: 'Jane Doe', number: '4321 8765 2109 2021', expiry: '11/25', cvv: '456', frozen: false },
-  ]);
+  ];
+
+  const [cards, setCards] = useState<CardType[]>(() => {
+    const stored = sessionStorage.getItem('cards');
+    return stored ? JSON.parse(stored) : defaultCards;
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem('cards', JSON.stringify(cards));
+  }, [cards]);
   const [current, setCurrent] = useState<number>(0);
   const [showNumber, setShowNumber] = useState<boolean>(false);
   const [detailsOpen, setDetailsOpen] = useState<boolean>(false);
@@ -88,7 +97,9 @@ export const Dashboard: React.FC = () => {
 
 
   const handleAddCard = (card: CardType) => {
-    setCards([...cards, card]);
+    const newCards = [...cards, card];
+    setCards(newCards);
+    sessionStorage.setItem('cards', JSON.stringify(newCards));
     setCurrent(cards.length);
     setModalOpen(false);
   };
