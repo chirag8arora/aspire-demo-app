@@ -56,7 +56,6 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ open, onClose, onAdd }) => 
   ) : null;
 };
 
-// Add show/hide toggle above the card
 const ShowHideToggle: React.FC<{ show: boolean; onToggle: () => void }> = ({ show, onToggle }) => (
   <button
     className="flex items-center gap-1 text-xs text-[#01D167] font-semibold mb-2 ml-auto pr-2 select-none focus:outline-none"

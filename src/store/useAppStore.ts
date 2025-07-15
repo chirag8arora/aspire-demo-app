@@ -1,15 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { AppState, User, Theme, Notification } from '../types';
+import { AppState, User, Theme } from '../types';
 
 interface AppStore extends AppState {
   setUser: (user: User | null) => void;
   setTheme: (theme: Theme) => void;
   toggleSidebar: () => void;
-  addNotification: (notification: Omit<Notification, 'id' | 'timestamp'>) => void;
-  markNotificationAsRead: (id: string) => void;
-  clearNotifications: () => void;
-  logout: () => void;
 }
 
 const defaultTheme: Theme = {
@@ -33,8 +29,7 @@ export const useAppStore = create<AppStore>()(
       user: defaultUser,
       theme: defaultTheme,
       sidebarCollapsed: false,
-      notifications: [],
-
+  
       // Actions
       setUser: (user) => set({ user }),
       
@@ -43,32 +38,7 @@ export const useAppStore = create<AppStore>()(
       toggleSidebar: () => set((state) => ({ 
         sidebarCollapsed: !state.sidebarCollapsed 
       })),
-      
-      addNotification: (notification) => set((state) => ({
-        notifications: [
-          {
-            ...notification,
-            id: Date.now().toString(),
-            timestamp: new Date(),
-          },
-          ...state.notifications,
-        ],
-      })),
-      
-      markNotificationAsRead: (id) => set((state) => ({
-        notifications: state.notifications.map((notification) =>
-          notification.id === id
-            ? { ...notification, isRead: true }
-            : notification
-        ),
-      })),
-      
-      clearNotifications: () => set({ notifications: [] }),
-      
-      logout: () => set({
-        user: null,
-        notifications: [],
-      }),
+    
     }),
     {
       name: 'aspire-app-storage',
@@ -76,7 +46,6 @@ export const useAppStore = create<AppStore>()(
         user: state.user,
         theme: state.theme,
         sidebarCollapsed: state.sidebarCollapsed,
-        notifications: state.notifications,
       }),
     }
   )
