@@ -161,6 +161,9 @@ The application uses Zustand for state management with:
 - Add new state slices in `src/store/useAppStore.ts`
 - Use the store with `useAppStore()` hook
 
+### State Management
+- Vercel deployed link - https://aspire-demo-app.vercel.app/
+
 ## 🤝 Contributing
 
 1. Fork the repository
