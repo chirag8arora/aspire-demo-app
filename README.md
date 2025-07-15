@@ -64,18 +64,16 @@ src/
 ├── components/          # Reusable UI components
 │   ├── Layout/         # Main layout wrapper
 │   ├── Sidebar/        # Navigation sidebar
-│   ├── Header/         # Top navigation header
-│   ├── Card/           # Card component
-│   └── CardContainer/  # Card grid container
+│   ├── Card/           # Card components
 ├── pages/              # Page components
 │   ├── Dashboard/      # Dashboard page
-│   └── Projects/       # Projects page
 ├── store/              # State management
 │   └── useAppStore.ts  # Zustand store
 ├── types/              # TypeScript type definitions
 │   └── index.ts        # Main types file
 ├── utils/              # Utility functions
 │   └── constants.ts    # App constants
+│   └── utils.ts        # App utils
 ├── App.tsx             # Main app component
 ├── index.tsx           # Entry point
 └── index.css           # Global styles
@@ -98,48 +96,6 @@ The application uses a consistent design system with:
 - `.eslintrc.js` - ESLint rules and plugins
 - `.prettierrc` - Prettier formatting rules
 - `package.json` - Dependencies and scripts
-
-## 🚀 Deployment
-
-### Netlify Deployment
-
-1. **Connect your repository**
-   - Push your code to GitHub/GitLab/Bitbucket
-   - Connect your repository to Netlify
-
-2. **Build settings**
-   - Build command: `npm run build`
-   - Publish directory: `build`
-   - Node version: 18 (or latest LTS)
-
-3. **Environment variables** (if needed)
-   - Add any required environment variables in Netlify dashboard
-
-### Vercel Deployment
-
-1. **Install Vercel CLI**
-
-   ```bash
-   npm i -g vercel
-   ```
-
-2. **Deploy**
-
-   ```bash
-   vercel
-   ```
-
-3. **Follow the prompts** to connect your repository
-
-### Manual Deployment
-
-1. **Build the project**
-
-   ```bash
-   npm run build
-   ```
-
-2. **Upload the `build` folder** to your hosting provider
 
 ## 🧪 Testing
 
@@ -180,14 +136,11 @@ The application uses Zustand for state management with:
 
 - **Layout**: Main wrapper with sidebar and header
 - **Sidebar**: Collapsible navigation with icons
-- **Header**: User menu and notifications
 
 ### Content Components
 
 - **Card**: Reusable card component with hover effects
-- **CardContainer**: Grid layout with loading states
 - **Dashboard**: Statistics and recent projects
-- **Projects**: Filterable project list
 
 ## 🔧 Customization
 
@@ -219,14 +172,3 @@ The application uses Zustand for state management with:
 ## 📄 License
 
 This project is licensed under the MIT License.
-
-## 🆘 Support
-
-For questions or issues:
-
-- Create an issue on GitHub
-- Contact: your.email@example.com
-
----
-
-**Built with ❤️ for coding assessments and professional development**

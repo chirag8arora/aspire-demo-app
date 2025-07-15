@@ -7,8 +7,6 @@ import { CardType, Transaction } from '@/types';
 import { randomCardNumber, randomExpiry } from '../../utils/utils';
 
 const EyeIcon = require('../../assets/remove_red_eye-24px.svg').default;
-const CardDetailsIcon = require('../../assets/card_details.svg').default;
-const RecentTransactionsIcon = require('../../assets/recent_transactions.svg').default;
 const DownArrowIcon = require('../../assets/down-arrow.svg').default;
 const MegaPhoneIcon = require('../../assets/megaphone.svg').default;
 const FileStorageIcon = require('../../assets/file-storage.svg').default;
@@ -109,7 +107,6 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="p-10 space-y-8 bg-[#F5F6FA] min-h-screen font-opensans">
-      {/* Header: Available balance and New card button */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
           <p className="text-sm text-[#222] font-semibold mb-1">Available balance</p>
@@ -131,7 +128,7 @@ export const Dashboard: React.FC = () => {
 
       <div className="flex flex-col md:flex-row gap-8">
 
-        <div className="flex-1 flex flex-col items-center max-w-[900px]">
+        <div className="flex-1 flex flex-col items-center max-w-[750px]">
 
           <ShowHideToggle show={showNumber} onToggle={() => setShowNumber((v) => !v)} />
           <div className="relative w-full flex items-center justify-center" style={{ minHeight: 260 }}>
@@ -210,7 +207,6 @@ export const Dashboard: React.FC = () => {
           <Transactions transactions={transactions} expanded={transactionsOpen} onToggle={() => setTransactionsOpen((v) => !v)} />
         </div>
       </div>
-      {/* Add Card Modal */}
       <AddCardModal open={modalOpen} onClose={() => setModalOpen(false)} onAdd={handleAddCard} />
     </div>
   );
